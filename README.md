@@ -3,5 +3,5 @@
 
 -It is important to take note of the fact that this collection is still growing as i learn more and improve my networking skills
 
-##Avaliable Projects
+## Avaliable Projects
 -Router on a stick network topology
