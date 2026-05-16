@@ -16,7 +16,7 @@ In some cases, Packet Tracer may initially display a failed communication attemp
 
 This project is a simulation of an enterprise network built using the tool Cisco Packet Tracer. which is freely avaliable and is used by those who wish to practice their networking skills.
 
-The primary goal of this project was to strengthen and apply core networking and cybersecurity concepts through the design and implementation of a scalable enterprise-style network.
+The primary goal of this project was to strengthen my understanding of core networking and cybersecurity concepts through the design and implementation of a scalable enterprise-style network.
 
 My project focuses on the following concepts:
 - VLAN segmentation
@@ -31,8 +31,10 @@ The network simulates a small enterprise environment consisting of multiple depa
 ---
 
 # Network Topology
-
+The Topology I used is shown in the screenshot below
 ![Enterprise Network Topology](screenshots/Topology.png)
+
+This topology is known as router-on-a-stick
 
 ---
 
@@ -56,8 +58,8 @@ The network simulates a small enterprise environment consisting of multiple depa
 Each department within the enterprise was assigned its own VLAN in order to isolate broadcast domains and organize traffic more efficiently.
 
 Examples:
-- HR Department → VLAN 10
-- Accounting Department → VLAN 60
+- HR Department belongs to VLAN 10
+- Accounting Department belongs to VLAN 60
 
 ### VLAN Database Examples
 The following are two switches, each switch holds two VLANs as can be seen in the screenshots
@@ -70,7 +72,7 @@ The following are two switches, each switch holds two VLANs as can be seen in th
 
 ## 802.1Q Trunking
 
-I configured 802.1Q trunking to allow traffic from multiple VLANs to traverse a single switch interface.
+I configured 802.1Q trunking to allow traffic from 2 VLANs to traverse a single switch interface.
 
 In the example below:
 PC0 in VLAN10 is capable of pinging a PC10, which has the IP address 192.168.18.99
@@ -82,17 +84,11 @@ PC6 in VLAN20 which is conected to the same switch as PC0, is also capable of pi
 
 ---
 
-## Router-on-a-Stick
-
-Inter-VLAN routing was implemented using a Router-on-a-Stick topology, where a single router interface handles traffic for multiple VLANs through the use of subinterfaces and 802.1Q encapsulation.
-
----
-
 ## Subnetting
 
 The network `192.168.18.0/24` was subnetted into multiple smaller networks by increasing the number of bits used to identify the network to `/27`, therefore using the subnet mask `225.255.255.244`.
 
-This allowed different departments and infrastructure services to operate within separate logical networks.
+This allowed different departments and the server network to operate within separate logical networks
 
 ---
 
@@ -100,23 +96,24 @@ This allowed different departments and infrastructure services to operate within
 
 A centralized DHCP server located within the Server VLAN dynamically assigns IP addresses, default gateways, and DNS information to hosts across multiple VLANs.
 
-Because DHCP broadcasts do not normally traverse VLAN boundaries, DHCP relay was implemented using the Cisco CLI command: `ip helper-address`
+Because DHCP broadcasts do not go outside a LAN I made use of DHCP relay through the Cisco CLI command: `ip helper-address`
 
 This allows DHCP requests received by the router to be forwarded directly to the centralized DHCP server.
 
 Examples:
 - PC4 belonging to VLAN 10 successfully receives an IP address dynamically
-- PC8 belonging to VLAN 40 successfully receives an IP address dynamically
 
 ![PC4 DHCP Configuration](screenshots/pc4-ip-config.png)
 
+- PC8 belonging to VLAN 40 successfully receives an IP address dynamically
+  
 ![PC8 DHCP Configuration](screenshots/pc8-ipconfig.png)
 
 ---
 
 ## DNS Service
 
-A dedicated DNS server is available to all internal enterprise VLANs except for the Guest VLAN for security reasons.
+A dedicated DNS server is available to all internal enterprise VLANs except for the Guest VLAN. Hosts connected to the network dedicated for guests are assigned the DNS server address of `8.8.8.8`
 
 ---
 
@@ -124,9 +121,10 @@ A dedicated DNS server is available to all internal enterprise VLANs except for 
 
 A centralized Email Server was configured using the custom domain:`@enterprise.net`
 
+The screenshot below is an image of the configuration of the Email service
 ![Email Server Configuration](screenshots/email-server-config.png)
 
-In my project the PC names `John's PC` has sent an email which has been successfully received by jessica on her pc, `Jessica's PC`
+In my project the PC named `John's PC` has sent an email which has been successfully received by jessica on her pc, `Jessica's PC`
 
 ![Successful Email Communication](screenshots/email-test.png)
 
@@ -154,7 +152,7 @@ This helps reduce the likelihood of the Guest VLAN becoming a pathway for unauth
 
 In the screenshots below:
 - a smartphone connected to the Guest VLAN is unable to communicate with the Email Server using ICMP
-- PC13, which belongs to an internal enterprise VLAN, is able to communicate successfully unlike the smartphone
+- PC13, which belongs to an internal enterprise VLAN, is able to communicate with the Email server successfully unlike the smartphone
 
 ![Guest VLAN Ping Failure](screenshots/smartphone-pingatt-emailserver.png)
 
