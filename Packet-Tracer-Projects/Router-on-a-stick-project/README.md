@@ -60,6 +60,7 @@ Examples:
 - Accounting Department → VLAN 60
 
 ### VLAN Database Examples
+The following are two switches, each switch holds two VLANs as can be seen in the screenshots
 
 ![Switch 1 VLAN Database](screenshots/VLAN-database-switch1.png)
 
@@ -69,9 +70,15 @@ Examples:
 
 ## 802.1Q Trunking
 
-802.1Q trunking was configured to allow traffic from multiple VLANs to traverse a single switch interface.
+I configured 802.1Q trunking to allow traffic from multiple VLANs to traverse a single switch interface.
+
+In the example below:
+PC0 in VLAN10 is capable of pinging a PC10, which has the IP address 192.168.18.99
+PC6 in VLAN20 which is conected to the same switch as PC0, is also capable of pinging PC10
+
 
 ![Cross VLAN Communication](screenshots/cross-vlan-communication.png)
+![Cross VLAN Communication](screenshots/PC6-pinging-outside-vlan.png)
 
 ---
 
