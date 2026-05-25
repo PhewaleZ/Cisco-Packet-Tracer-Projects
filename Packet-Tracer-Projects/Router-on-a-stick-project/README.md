@@ -75,7 +75,7 @@ The following are two switches, each switch holds two VLANs as can be seen in th
 I configured 802.1Q trunking to allow traffic from 2 VLANs to traverse a single switch interface.
 
 In the example below:
-PC0 in VLAN10 is capable of pinging a PC10, which has the IP address 192.168.18.99
+PC0 in VLAN10 is capable of pinging PC10, which has the IP address 192.168.18.99
 PC6 in VLAN20 which is conected to the same switch as PC0, is also capable of pinging PC10
 
 
